@@ -1,0 +1,73 @@
+version: '3.9'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+  
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+  simulator:
+    build: ./simulator
+    ports:
+      - "2775:2775"
+      - "88:88"
+  sample_handler:
+    build: ./sample_handler
+    ports:
+      - "8080:80"
+  smpp_collector:
+    build: ./collector
+    depends_on:
+      - simulator
+      - zookeeper
+      - kafka
+    links: 
+      - "kafka:kafka"
+      - "simulator:simulator"
+  fast_api:
+    build: ./api
+    ports:
+      - "8000:80"
+    depends_on:
+      - zookeeper
+      - kafka
+      - mongodb_container
+      - smpp_collector
+    environment:
+      - MONGO_URL=mongodb://root:rootpassword@mongodb_container:27017/db_sms?retryWrites=true&w=majority
+      - KAFKA_URL=kafka:9092
+    links:
+      - "mongodb_container:mongodb_container"
+      - "kafka:kafka"
+      - "sample_handler:sample_handler"
+volumes:
+  mongodb_data_container:
+networks:
+  net-ref:
+    external: true
+    name: app_net
