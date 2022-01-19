@@ -1,5 +1,5 @@
 # SMS Api and Collector
-### The combination between FastAPI (Front API), SpringBoot ( Daemon task) via Kafka and Mongodb as Database
+### The combination between FastAPI (Front API), SpringBoot ( Daemon task) via Kafka and MongoDB as data store
 
 ![N|Solid](https://cdn-images-1.medium.com/max/800/0*wmA2MbVb89z2Ur8k)
 
