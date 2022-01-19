@@ -1,4 +1,4 @@
-package com.smppgw.core.sms.concatenate;
+package com.smppgw.core.sms.helper;
 
 public class ByteBuffer
 {

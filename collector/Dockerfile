@@ -12,8 +12,8 @@ FROM openjdk:8-jre-slim
 
 
 RUN mkdir /app
-RUN apt-get update
-RUN apt-get install -y iputils-ping
+#RUN apt-get update
+#RUN apt-get install -y iputils-ping
 
 
 COPY --from=build /home/gradle/build/libs/*.jar /app/spring-boot-application.jar

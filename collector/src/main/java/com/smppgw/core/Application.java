@@ -25,25 +25,7 @@ public class Application implements CommandLineRunner {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
         SpringApplication.run(Application.class, args);
-//        QueueEvent queueEvent = (data, type) -> {
-//            LOGGER.info("data " + data + " type : " + type);
-//        };
-//        TransmitterQueue transmitterQueue = new TransmitterQueue(queueEvent, "127.0.0.1", 2775, "SMPPSim", "SMPPSim", "password");
-//        transmitterQueue.startQueue();
-//        transmitterQueue.enqueue(new AsynchronousData( "964772119995", "110", UUID.randomUUID().toString(), new Date(), "سساينينين", false, 8));
-//        Thread.sleep(20000);
-//        transmitterQueue.stopQueue();
-////        ReceiverQueue reciverQueue = new ReceiverQueue(queueEvent, "127.0.0.1", 2775, "SMPPSim", "SMPPSim", "password");
-////        reciverQueue.startQueue();
-////        Thread.sleep(200000);
-////        reciverQueue.stopQueue();
-//        TransceiverQueue transceiverQueue = new TransceiverQueue(queueEvent, "127.0.0.1", 2775, "SMPPSim", "SMPPSim", "password");
-//        transceiverQueue.startQueue();
-//        transceiverQueue.enqueue(new AsynchronousData( "964772119995", "110", UUID.randomUUID().toString(), new Date(), "Hello", false, 8));
-//        Thread.sleep(10000);
-//        transceiverQueue.stopQueue();
-//        LOGGER.info("done...");
     }
 }

@@ -1,10 +1,10 @@
 package com.smppgw.core.queue;
 
 import com.smppgw.core.data.AsynchronousData;
-import com.smppgw.core.sms.concatenate.ByteBuffer;
-import com.smppgw.core.sms.concatenate.ByteBufferBuilder;
-import com.smppgw.core.sms.concatenate.DataByte;
-import com.smppgw.core.sms.concatenate.DataByteBuilder;
+import com.smppgw.core.sms.helper.ByteBuffer;
+import com.smppgw.core.sms.helper.ByteBufferBuilder;
+import com.smppgw.core.sms.helper.DataByte;
+import com.smppgw.core.sms.helper.DataByteBuilder;
 import ie.omk.smpp.Address;
 import ie.omk.smpp.Connection;
 import ie.omk.smpp.event.ConnectionObserver;
@@ -290,7 +290,7 @@ public abstract class BaseAsyncQueue implements SmppQueue, ConnectionObserver {
             sm.setSequenceNum(0);
             connection.sendRequest(sm);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(" error sending sms",e);
         }
     }
 

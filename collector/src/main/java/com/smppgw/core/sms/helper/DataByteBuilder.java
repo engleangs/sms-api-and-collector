@@ -1,4 +1,4 @@
-package com.smppgw.core.sms.concatenate;
+package com.smppgw.core.sms.helper;
 
 import ie.omk.smpp.util.AlphabetEncoding;
 import ie.omk.smpp.util.DefaultAlphabetEncoding;
